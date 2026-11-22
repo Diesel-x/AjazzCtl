@@ -42,6 +42,21 @@ Get the latest binaries from the **[Releases page](https://github.com/Diesel-x/A
 
 ---
 
+## AjazzCtl vs Official AJAZZ Driver
+
+| Feature | AjazzCtl | Official Driver (`DeviceDriver.exe`) |
+| :--- | :--- | :--- |
+| **Source Code & Privacy** | Open-source (MIT) + full [PROTOCOL.md](PROTOCOL.md) | Closed-source OEM binary |
+| **Installation & Footprint** | Single portable `.exe` + built-in Full Uninstall | Windows installer in `Program Files (x86)` with MFC/MSVC DLLs |
+| **2.4 GHz Screen Upload** | Enabled over 2.4 GHz dongle (`MI_03`) as well as USB | Hidden/disabled in 2.4G UI (`screen="0"`) |
+| **GIF Optimization** | Automatic frame subsampling (`30 / 60 / 140`) with delay scaling | Raw frames without automatic subsampling |
+| **Flash Protection** | `250 ms` slider debounce on instant RGB changes | Sends immediate writes on UI change |
+| **CLI & Scripting** | Full CLI (`status`, `sync-time`, `light`, `per-key`, `settings`, `screen-image`, `--dry-run`) | GUI only |
+| **Windows Integrations** | USB/wake auto-restore (`WM_DEVICECHANGE`), `RU/EN` layout indicator, typing sound synth (`.wav` + 6 presets) | Not included |
+| **Key Remap & Macros** | Not implemented yet | Supported |
+
+---
+
 ## Features
 
 ### 0.85" TFT Screen Upload (PNG / JPG / BMP / GIF)
