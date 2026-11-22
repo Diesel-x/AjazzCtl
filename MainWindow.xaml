@@ -1,0 +1,1047 @@
+<Window x:Class="AjazzCtl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AjazzCtl — AJAZZ AK820 Pro"
+        Icon="pack://application:,,,/Assets/app.ico"
+        Width="1060"
+        Height="740"
+        MinWidth="940"
+        MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        Background="#131722"
+        Foreground="#ECF1FA"
+        FontFamily="Segoe UI"
+        FontSize="13"
+        UseLayoutRounding="True">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="BgBrush" Color="#131722"/>
+        <SolidColorBrush x:Key="CardBrush" Color="#1B2130"/>
+        <SolidColorBrush x:Key="CardAltBrush" Color="#232B3E"/>
+        <SolidColorBrush x:Key="HoverBrush" Color="#2D3750"/>
+        <SolidColorBrush x:Key="BorderBrushDark" Color="#34405C"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#38A5FF"/>
+        <SolidColorBrush x:Key="AccentHoverBrush" Color="#56B5FF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#ECF1FA"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#9AA7C0"/>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="MutedLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+        </Style>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushDark}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource CardAltBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushDark}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,7"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bg"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="{StaticResource HoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bg" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bg" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#2563EB"/>
+            <Setter Property="BorderBrush" Value="#3B82F6"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bg"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="#3B82F6"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="#1D4ED8"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bg" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#B91C1C"/>
+            <Setter Property="BorderBrush" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bg"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="#DC2626"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="#991B1B"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bg" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#141925"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushDark}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#1B2130"/>
+            <Setter Property="Foreground" Value="#ECF1FA"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#2D3750"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#2563EB"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource CardAltBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushDark}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Focusable="False"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="bd"
+                                                Background="{StaticResource CardAltBrush}"
+                                                BorderBrush="{StaticResource BorderBrushDark}"
+                                                BorderThickness="1"
+                                                CornerRadius="5">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="26"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Path Grid.Column="1"
+                                                      Data="M 0 0 L 4 4 L 8 0 Z"
+                                                      Fill="#9AA7C0"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="bd" Property="Background" Value="{StaticResource HoverBrush}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              Margin="10,5,28,5"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Border MinWidth="{TemplateBinding ActualWidth}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        Background="#1B2130"
+                                        BorderBrush="{StaticResource BorderBrushDark}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Margin="0,2,0,0">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TileRadioStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="Background" Value="{StaticResource CardAltBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushDark}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,7"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource HoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#1E3A5F"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+            <Setter Property="FontSize" Value="12.5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="11,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="bd"
+                                Background="#181E2C"
+                                BorderBrush="{StaticResource BorderBrushDark}"
+                                BorderThickness="1,1,1,0"
+                                CornerRadius="7,7,0,0"
+                                Margin="0,0,4,0"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Header"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#232B3E"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#1B2130"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ProgressBar">
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Background" Value="#111520"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushDark}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="12"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="14,14,14,8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="124"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. Top Header Bar -->
+        <Border Grid.Row="0" Style="{StaticResource CardStyle}" Padding="14,10" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Source="pack://application:,,,/Assets/logo.png"
+                       Width="42"
+                       Height="42"
+                       Margin="0,0,12,0"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       VerticalAlignment="Center"/>
+
+                <StackPanel Orientation="Vertical" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <Ellipse x:Name="StatusDot" Width="10" Height="10" Fill="#FBBF24" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="StatusText" FontSize="14" FontWeight="SemiBold" Text="Поиск устройства..." Margin="0,0,12,0"/>
+                        <Border Background="#261C38" BorderBrush="#53387E" BorderThickness="1" CornerRadius="5" Padding="8,2">
+                            <TextBlock x:Name="LayoutBadgeText" FontSize="12" FontWeight="SemiBold" Foreground="#C4B5FD" Text="Язык: --"/>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="ConnectionModeLabel" Style="{StaticResource MutedLabelStyle}" Text="Канал связи:" Margin="0,0,8,0"/>
+                        <ComboBox x:Name="ConnectionModeCombo" Width="165" SelectedIndex="0" Margin="0,0,12,0">
+                            <ComboBoxItem x:Name="ConnAutoItem" Content="Авто (USB → 2.4G)"/>
+                            <ComboBoxItem x:Name="ConnUsbItem" Content="Только USB"/>
+                            <ComboBoxItem x:Name="Conn24GItem" Content="Только 2.4 ГГц"/>
+                        </ComboBox>
+                        <CheckBox x:Name="AutoSyncTimeCheck"
+                                  Content="Автосинхронизация (30 мин)"
+                                  Margin="0,0,12,0"
+                                  Checked="AutoSyncTimeCheck_Changed"
+                                  Unchecked="AutoSyncTimeCheck_Changed"/>
+                        <CheckBox x:Name="AutoRestoreConnectCheck"
+                                  Content="🔌 Автовосстановление (USB / сон)"
+                                  IsChecked="True"
+                                  ToolTip="Отслеживает подключение клавиатуры (WM_DEVICECHANGE) и выход ПК из сна, автоматически синхронизируя время и восстанавливая подсветку"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                    <TextBlock x:Name="LanguageLabel" Style="{StaticResource MutedLabelStyle}" Text="Язык:" Margin="0,0,6,0"/>
+                    <ComboBox x:Name="LanguageCombo" Width="74" SelectedIndex="0" Margin="0,0,10,0" SelectionChanged="LanguageCombo_SelectionChanged">
+                        <ComboBoxItem Content="EN"/>
+                        <ComboBoxItem Content="RU"/>
+                        <ComboBoxItem Content="中文"/>
+                        <ComboBoxItem Content="DE"/>
+                    </ComboBox>
+                    <Button x:Name="RefreshDevicesButton"
+                            Content="⟳ Обновить"
+                            Margin="0,0,8,0"
+                            Click="RefreshDevicesButton_Click"/>
+                    <Button x:Name="SyncTimeButton"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Content="🕒 Синхронизировать время"
+                            Click="SyncTimeButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 2. Main Body: Left Persistent Screen Sidebar + Right Tabs -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Sidebar: Persistent 0.85" TFT Bezel & Preview -->
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}" AllowDrop="True" DragOver="ScreenPreview_DragOver" Drop="ScreenPreview_Drop">
+                <StackPanel>
+                    <TextBlock x:Name="ScreenSectionTitleText" Style="{StaticResource SectionTitleStyle}" Text="0.85&quot; TFT Экран (128×128)"/>
+
+                    <!-- Hardware-styled 224x224 Bezel -->
+                    <Border Width="224" Height="224"
+                            Background="#0A0D14"
+                            BorderBrush="#425072"
+                            BorderThickness="3"
+                            CornerRadius="14"
+                            HorizontalAlignment="Center"
+                            Margin="0,2,0,10">
+                        <Grid>
+                            <Border BorderBrush="#1F293D" BorderThickness="1" CornerRadius="10" Margin="6">
+                                <Image x:Name="PreviewImage"
+                                       Width="192"
+                                       Height="192"
+                                       Stretch="Uniform"
+                                       RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock x:Name="ScreenDropHintText"
+                               Style="{StaticResource MutedLabelStyle}"
+                               Text="Перетащите PNG / JPG / GIF сюда"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock x:Name="FrameInfoText"
+                               Text="Перетащите картинку или GIF"
+                               HorizontalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,8"/>
+
+                    <!-- Playback & Scrubber Bar -->
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="PlayPauseButton"
+                                Grid.Column="0"
+                                Content="⏯"
+                                Width="38"
+                                Padding="4"
+                                Margin="0,0,8,0"
+                                IsEnabled="False"
+                                Click="PlayPauseButton_Click"/>
+                        <Slider x:Name="FrameScrubberSlider"
+                                Grid.Column="1"
+                                Minimum="1"
+                                Maximum="1"
+                                Value="1"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"
+                                VerticalAlignment="Center"
+                                IsEnabled="False"
+                                ValueChanged="FrameScrubberSlider_ValueChanged"/>
+                    </Grid>
+
+                    <!-- Slot selector -->
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="120"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="SlotLabelText" Grid.Column="0" Style="{StaticResource MutedLabelStyle}" Text="Слот памяти экрана:"/>
+                        <ComboBox x:Name="SlotCombo" Grid.Column="1" SelectedIndex="0">
+                            <ComboBoxItem Content="Слот 1"/>
+                            <ComboBoxItem Content="Слот 2"/>
+                            <ComboBoxItem Content="Слот 3"/>
+                            <ComboBoxItem Content="Слот 4"/>
+                            <ComboBoxItem Content="Слот 5"/>
+                            <ComboBoxItem Content="Слот 6"/>
+                            <ComboBoxItem Content="Слот 7"/>
+                            <ComboBoxItem Content="Слот 8"/>
+                            <ComboBoxItem Content="Слот 9"/>
+                            <ComboBoxItem Content="Слот 10"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- Upload Progress -->
+                    <ProgressBar x:Name="UploadProgressBar" Minimum="0" Maximum="100" Value="0" Margin="0,0,0,6"/>
+                    <TextBlock x:Name="UploadStatusText"
+                               Style="{StaticResource MutedLabelStyle}"
+                               Text="Готово к отправке"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Right Tabs Area -->
+            <TabControl Grid.Column="2">
+                <!-- TAB 1: Screen (Images / GIF) -->
+                <TabItem x:Name="ScreenTabItem" Header="🖥 Экран (Картинки / GIF)">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,8,0,0">
+                        <StackPanel>
+                            <!-- Card: Image / GIF Upload -->
+                            <Border Style="{StaticResource CardStyle}">
+                                <StackPanel>
+                                    <TextBlock x:Name="ImgCardTitleText" Style="{StaticResource SectionTitleStyle}" Text="Картинка или GIF-анимация (до 140 кадров)"/>
+
+                                    <!-- 2.4 GHz Slow Upload Warning -->
+                                    <Border Background="#2D220E"
+                                            BorderBrush="#B45309"
+                                            BorderThickness="1"
+                                            CornerRadius="6"
+                                            Padding="10,8"
+                                            Margin="0,0,0,12">
+                                        <TextBlock x:Name="WirelessSlowWarningText"
+                                                   Foreground="#FCD34D"
+                                                   FontSize="12"
+                                                   TextWrapping="Wrap"/>
+                                    </Border>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                        <Button x:Name="SelectImageButton"
+                                                Content="📂 Выбрать PNG / JPG / GIF..."
+                                                Margin="0,0,10,0"
+                                                Click="SelectImageButton_Click"/>
+                                        <Button x:Name="LoadDemoGifButton"
+                                                Content="✨ Загрузить демо-GIF Ajazz"
+                                                Click="LoadDemoGifButton_Click"/>
+                                    </StackPanel>
+
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="215"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="GifLimitLabelText" Grid.Column="0" Style="{StaticResource MutedLabelStyle}" Text="Лимит кадров GIF (ускорение):"/>
+                                        <ComboBox x:Name="OptimizeGifCombo" Grid.Column="1" SelectedIndex="0" SelectionChanged="OptimizeGifCombo_SelectionChanged">
+                                            <ComboBoxItem x:Name="GifLimit30Item" Content="До 30 кадров (Быстро ~1 МБ)" Tag="30"/>
+                                            <ComboBoxItem x:Name="GifLimit60Item" Content="До 60 кадров (Оптимально ~2 МБ)" Tag="60"/>
+                                            <ComboBoxItem x:Name="GifLimit140Item" Content="Все кадры (до 140, до 4.5 МБ)" Tag="140"/>
+                                        </ComboBox>
+                                    </Grid>
+
+                                    <Grid Margin="0,0,0,14">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="170"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="58"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="FrameDelayLabelText" Grid.Column="0" Style="{StaticResource MutedLabelStyle}" Text="Задержка кадров (30..500):"/>
+                                        <Slider x:Name="FrameDelaySlider"
+                                                Grid.Column="1"
+                                                Minimum="30"
+                                                Maximum="500"
+                                                Value="100"
+                                                TickFrequency="10"
+                                                IsSnapToTickEnabled="True"
+                                                VerticalAlignment="Center"
+                                                ValueChanged="FrameDelaySlider_ValueChanged"/>
+                                        <TextBlock x:Name="FrameDelayText"
+                                                   Grid.Column="2"
+                                                   HorizontalAlignment="Right"
+                                                   FontWeight="SemiBold"
+                                                   Text="100 мс"/>
+                                    </Grid>
+
+                                    <Button x:Name="UploadImageButton"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            Content="⬆ Загрузить картинку / GIF в клавиатуру"
+                                            HorizontalAlignment="Left"
+                                            Click="UploadImageButton_Click"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- TAB 2: RGB Lighting -->
+                <TabItem x:Name="LightingTabItem" Header="🌈 RGB Подсветка">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,8,0,0">
+                        <StackPanel>
+                            <!-- Mode Tiles -->
+                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="LightModesTitleText" Style="{StaticResource SectionTitleStyle}" Margin="0" Text="Режим подсветки (20 эффектов)"/>
+                                        <CheckBox x:Name="InstantLightApplyCheck"
+                                                  Grid.Column="1"
+                                                  Content="⚡ Мгновенно применять при выборе"
+                                                  IsChecked="False"/>
+                                    </Grid>
+
+                                    <UniformGrid x:Name="LightModesGrid" Columns="4"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Color & Parameters -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Color Card -->
+                                <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                                    <StackPanel>
+                                        <TextBlock x:Name="ColorPaletteTitleText" Style="{StaticResource SectionTitleStyle}" Text="Цвет и палитра"/>
+
+                                        <StackPanel x:Name="ColorSwatchesPanel" Orientation="Horizontal" Margin="0,0,0,10"/>
+
+                                        <Grid Margin="0,0,0,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="42"/>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="95"/>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="ColorSwatchPreview" Grid.Column="0" Height="30" CornerRadius="5" BorderBrush="#4E5D80" BorderThickness="1" Background="#FF8000"/>
+                                            <TextBox x:Name="HexColorBox" Grid.Column="2" Text="#FF8000" TextChanged="HexColorBox_TextChanged"/>
+                                            <Button x:Name="PickColorButton" Grid.Column="4" Content="Палитра..." Click="PickColorButton_Click"/>
+                                        </Grid>
+
+                                        <Grid Margin="0,2">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/><ColumnDefinition Width="34"/></Grid.ColumnDefinitions>
+                                            <TextBlock Text="R" Foreground="#F87171" FontWeight="Bold"/>
+                                            <Slider x:Name="RedSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="255" ValueChanged="RgbSlider_ValueChanged"/>
+                                            <TextBlock x:Name="RedValueText" Grid.Column="2" HorizontalAlignment="Right" Text="255"/>
+                                        </Grid>
+                                        <Grid Margin="0,2">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/><ColumnDefinition Width="34"/></Grid.ColumnDefinitions>
+                                            <TextBlock Text="G" Foreground="#4ADE80" FontWeight="Bold"/>
+                                            <Slider x:Name="GreenSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="128" ValueChanged="RgbSlider_ValueChanged"/>
+                                            <TextBlock x:Name="GreenValueText" Grid.Column="2" HorizontalAlignment="Right" Text="128"/>
+                                        </Grid>
+                                        <Grid Margin="0,2,0,8">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/><ColumnDefinition Width="34"/></Grid.ColumnDefinitions>
+                                            <TextBlock Text="B" Foreground="#60A5FA" FontWeight="Bold"/>
+                                            <Slider x:Name="BlueSlider" Grid.Column="1" Minimum="0" Maximum="255" Value="0" ValueChanged="RgbSlider_ValueChanged"/>
+                                            <TextBlock x:Name="BlueValueText" Grid.Column="2" HorizontalAlignment="Right" Text="0"/>
+                                        </Grid>
+
+                                        <CheckBox x:Name="ColorfulCheck"
+                                                  Content="🌈 Многоцветный режим (Радуга)"
+                                                  Checked="LightParam_Changed"
+                                                  Unchecked="LightParam_Changed"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Brightness, Speed, Direction Card -->
+                                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                                    <StackPanel>
+                                        <TextBlock x:Name="BrightnessSpeedDirTitleText" Style="{StaticResource SectionTitleStyle}" Text="Яркость, скорость и направление"/>
+
+                                        <Grid Margin="0,4,0,10">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="95"/><ColumnDefinition Width="*"/><ColumnDefinition Width="26"/></Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="BrightnessLabelText" Style="{StaticResource MutedLabelStyle}" Text="Яркость:"/>
+                                            <Slider x:Name="BrightnessSlider" Grid.Column="1" Minimum="0" Maximum="5" Value="5" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="LightParam_Changed"/>
+                                            <TextBlock x:Name="BrightnessValueText" Grid.Column="2" HorizontalAlignment="Right" FontWeight="SemiBold" Text="5"/>
+                                        </Grid>
+
+                                        <Grid Margin="0,0,0,14">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="95"/><ColumnDefinition Width="*"/><ColumnDefinition Width="26"/></Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="SpeedLabelText" Style="{StaticResource MutedLabelStyle}" Text="Скорость:"/>
+                                            <Slider x:Name="SpeedSlider" Grid.Column="1" Minimum="0" Maximum="5" Value="3" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="LightParam_Changed"/>
+                                            <TextBlock x:Name="SpeedValueText" Grid.Column="2" HorizontalAlignment="Right" FontWeight="SemiBold" Text="3"/>
+                                        </Grid>
+
+                                        <TextBlock x:Name="DirectionLabelText" Style="{StaticResource MutedLabelStyle}" Text="Направление эффекта:" Margin="0,0,0,6"/>
+                                        <UniformGrid x:Name="DirectionsGrid" Columns="2" Margin="0,0,0,16">
+                                            <RadioButton x:Name="DirLeftRadio" Style="{StaticResource TileRadioStyle}" Content="⬅ Влево" Tag="0" IsChecked="True" Checked="DirectionRadio_Checked"/>
+                                            <RadioButton x:Name="DirRightRadio" Style="{StaticResource TileRadioStyle}" Content="➡ Вправо" Tag="1" Checked="DirectionRadio_Checked"/>
+                                            <RadioButton x:Name="DirUpRadio" Style="{StaticResource TileRadioStyle}" Content="⬆ Вверх" Tag="2" Checked="DirectionRadio_Checked"/>
+                                            <RadioButton x:Name="DirDownRadio" Style="{StaticResource TileRadioStyle}" Content="⬇ Вниз" Tag="3" Checked="DirectionRadio_Checked"/>
+                                        </UniformGrid>
+
+                                        <Button x:Name="ApplyLightButton"
+                                                Style="{StaticResource PrimaryButtonStyle}"
+                                                Content="Применить подсветку"
+                                                Click="ApplyLightButton_Click"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- TAB 3: Per-Key RGB Editor -->
+                <TabItem x:Name="PerKeyTabItem" Header="🎹 Поклавишная RGB">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,8,0,0">
+                        <StackPanel>
+                            <!-- Card 1: Interactive Keyboard Map -->
+                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,10" Padding="12">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="PerKeyMapTitleText" Style="{StaticResource SectionTitleStyle}" Margin="0" Text="Интерактивная карта AJAZZ AK820 Pro (81 клавиша)"/>
+                                        <TextBlock x:Name="PerKeyMapHintText" Grid.Column="1" Style="{StaticResource MutedLabelStyle}" Text="ЛКМ (или тянуть) — покрасить • ПКМ — выключить"/>
+                                    </Grid>
+
+                                    <Border Background="#0C1018" BorderBrush="#2D3750" BorderThickness="1" CornerRadius="8" Padding="8">
+                                        <Viewbox Stretch="Uniform" MaxHeight="240">
+                                            <Canvas x:Name="KeyboardCanvas" Width="640" Height="260" Background="Transparent" ClipToBounds="True"/>
+                                        </Viewbox>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Card 2: Quick Zones & Themes -->
+                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,10" Padding="12">
+                                <StackPanel>
+                                    <TextBlock x:Name="PerKeyZonesTitleText" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,6" Text="Быстрая заливка зон и готовые темы"/>
+                                    <WrapPanel Margin="0,0,0,6">
+                                        <Button x:Name="ZoneAllBtn" Content="Все клавиши" Margin="0,0,6,6" Padding="10,5" Tag="all" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneWasdBtn" Content="WASD" Margin="0,0,6,6" Padding="10,5" Tag="wasd" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneArrowsBtn" Content="Стрелки" Margin="0,0,6,6" Padding="10,5" Tag="arrows" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneFnBtn" Content="F1–F12" Margin="0,0,6,6" Padding="10,5" Tag="fn" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneNumbersBtn" Content="Цифры" Margin="0,0,6,6" Padding="10,5" Tag="numbers" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneLettersBtn" Content="Буквы" Margin="0,0,6,6" Padding="10,5" Tag="letters" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneModifiersBtn" Content="Модификаторы" Margin="0,0,6,6" Padding="10,5" Tag="modifiers" Click="PerKeyZoneButton_Click"/>
+                                        <Button x:Name="ZoneOffBtn" Content="🧹 Выключить все" Margin="0,0,6,6" Padding="10,5" Tag="off" Click="PerKeyZoneButton_Click"/>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Button x:Name="ThemeCyberpunkBtn" Content="🌆 Киберпанк" Margin="0,0,6,0" Padding="10,5" Tag="cyberpunk" Click="PerKeyPresetButton_Click"/>
+                                        <Button x:Name="ThemeGamerBtn" Content="🎮 Геймер (WASD+Стрелки)" Margin="0,0,6,0" Padding="10,5" Tag="gamer" Click="PerKeyPresetButton_Click"/>
+                                        <Button x:Name="ThemeGradientBtn" Content="🌅 Градиент Закат" Margin="0,0,6,0" Padding="10,5" Tag="gradient" Click="PerKeyPresetButton_Click"/>
+                                        <Button x:Name="ThemeRainbowBtn" Content="🌈 Радуга по рядам" Margin="0,0,6,0" Padding="10,5" Tag="rainbow" Click="PerKeyPresetButton_Click"/>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Card 3: Brush Color & Upload -->
+                            <Border Style="{StaticResource CardStyle}" Padding="12">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                                        <TextBlock x:Name="PerKeyBrushLabelText" Style="{StaticResource MutedLabelStyle}" Text="Кисть:" Margin="0,0,8,0"/>
+                                        <Border x:Name="PerKeyBrushPreview" Width="28" Height="28" CornerRadius="5" BorderBrush="#4E5D80" BorderThickness="1" Background="#00B4FF" Margin="0,0,8,0"/>
+                                        <TextBox x:Name="PerKeyHexBox" Width="86" Text="#00B4FF" Margin="0,0,8,0" TextChanged="PerKeyHexBox_TextChanged"/>
+                                        <Button x:Name="PerKeyPickColorButton" Content="Палитра..." Margin="0,0,12,0" Click="PerKeyPickColorButton_Click"/>
+                                        <StackPanel x:Name="PerKeySwatchesPanel" Orientation="Horizontal"/>
+                                    </StackPanel>
+
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="PerKeyBrightnessLabelText" Grid.Column="0" Style="{StaticResource MutedLabelStyle}" Text="Яркость (1..5):" Margin="0,0,8,0"/>
+                                        <Slider x:Name="PerKeyBrightnessSlider" Grid.Column="1" Minimum="1" Maximum="5" Value="5" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" ValueChanged="PerKeyBrightnessSlider_ValueChanged"/>
+                                        <TextBlock x:Name="PerKeyBrightnessText" Grid.Column="2" FontWeight="SemiBold" Text="5"/>
+                                        <Button x:Name="ApplyPerKeyButton"
+                                                Grid.Column="4"
+                                                Style="{StaticResource PrimaryButtonStyle}"
+                                                Content="✨ Записать раскраску клавиш в клавиатуру"
+                                                Click="ApplyPerKeyButton_Click"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- TAB 4: Keyboard Settings & Uninstall -->
+                <TabItem x:Name="SettingsTabItem" Header="⚙ Параметры">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,8,0,0">
+                        <StackPanel>
+                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <TextBlock x:Name="DebounceTitleText" Style="{StaticResource SectionTitleStyle}" Text="Время отклика клавиш (Debounce)"/>
+                                    <UniformGrid x:Name="DebounceGrid" Columns="1">
+                                        <RadioButton x:Name="Debounce1Radio" Style="{StaticResource TileRadioStyle}" HorizontalContentAlignment="Left" Content="Уровень 1 — ~2-3 мс (USB) / ~5-6 мс (2.4G)" Tag="1" IsChecked="True"/>
+                                        <RadioButton x:Name="Debounce2Radio" Style="{StaticResource TileRadioStyle}" HorizontalContentAlignment="Left" Content="Уровень 2 — ~5-6 мс (USB) / ~7-9 мс (2.4G)" Tag="2"/>
+                                        <RadioButton x:Name="Debounce3Radio" Style="{StaticResource TileRadioStyle}" HorizontalContentAlignment="Left" Content="Уровень 3 — ~8-9 мс (USB) / ~10-12 мс (2.4G)" Tag="3"/>
+                                        <RadioButton x:Name="Debounce4Radio" Style="{StaticResource TileRadioStyle}" HorizontalContentAlignment="Left" Content="Уровень 4 — ~13-14 мс (USB) / ~15-17 мс (2.4G)" Tag="4"/>
+                                        <RadioButton x:Name="Debounce5Radio" Style="{StaticResource TileRadioStyle}" HorizontalContentAlignment="Left" Content="Уровень 5 — ~17-18 мс (USB) / ~19-21 мс (2.4G)" Tag="5"/>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                                    <StackPanel>
+                                        <TextBlock x:Name="SleepTitleText" Style="{StaticResource SectionTitleStyle}" Text="Таймер сна (2.4 ГГц)"/>
+                                        <UniformGrid x:Name="SleepGrid" Columns="2">
+                                            <RadioButton x:Name="Sleep0Radio" Style="{StaticResource TileRadioStyle}" Content="Без сна" Tag="0"/>
+                                            <RadioButton x:Name="Sleep1Radio" Style="{StaticResource TileRadioStyle}" Content="1 минута" Tag="1"/>
+                                            <RadioButton x:Name="Sleep2Radio" Style="{StaticResource TileRadioStyle}" Content="5 минут" Tag="2" IsChecked="True"/>
+                                            <RadioButton x:Name="Sleep3Radio" Style="{StaticResource TileRadioStyle}" Content="30 минут" Tag="3"/>
+                                        </UniformGrid>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                                    <StackPanel>
+                                        <TextBlock x:Name="GameModeTitleText" Style="{StaticResource SectionTitleStyle}" Text="Игровой режим и клавиши"/>
+                                        <CheckBox x:Name="DisableWinCheck" Content="Отключить клавишу Windows" Margin="0,0,0,8"/>
+                                        <CheckBox x:Name="DisableAltF4Check" Content="Отключить Alt + F4" Margin="0,0,0,8"/>
+                                        <CheckBox x:Name="DisableAltTabCheck" Content="Отключить Alt + Tab" Margin="0,0,0,8"/>
+                                        <CheckBox x:Name="FnSwitchCheck" Content="Инвертировать слой Fn" Margin="0,0,0,12"/>
+                                        <Button x:Name="ApplySettingsButton"
+                                                Style="{StaticResource PrimaryButtonStyle}"
+                                                Content="💾 Применить системные настройки"
+                                                Click="ApplySettingsButton_Click"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <Border Style="{StaticResource CardStyle}" Margin="0,12,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Name="LayoutIndTitleText" Style="{StaticResource SectionTitleStyle}" Text="Умная индикация раскладки (RU / EN)"/>
+                                    <CheckBox x:Name="LayoutIndicatorCheck"
+                                              Content="🌐 Менять цвет подсветки при переключении языка в Windows (EN = Голубой #00B4FF • RU = Оранжево-красный #FF3B00)"
+                                              Margin="0,0,0,10"
+                                              Checked="LayoutIndicatorCheck_Changed"
+                                              Unchecked="LayoutIndicatorCheck_Changed"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="170"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="LayoutIndModeLabelText" Grid.Column="0" Style="{StaticResource MutedLabelStyle}" Text="Режим индикации RU/EN:"/>
+                                        <ComboBox x:Name="LayoutIndicatorModeCombo" Grid.Column="1" SelectedIndex="0">
+                                            <ComboBoxItem x:Name="LayoutIndModeAllItem" Content="Вся подсветка (Статичный цвет: EN = Голубой, RU = Красный)"/>
+                                            <ComboBoxItem x:Name="LayoutIndModeZoneItem" Content="Поклавишная зона (Caps + Пробел + Esc на текущей карте клавиш)"/>
+                                        </ComboBox>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}" Margin="0,12,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Name="UninstallTitleText" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,6"/>
+                                    <TextBlock x:Name="UninstallDescText" Style="{StaticResource MutedLabelStyle}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                                    <Button x:Name="UninstallButton"
+                                            Style="{StaticResource DangerButtonStyle}"
+                                            HorizontalAlignment="Left"
+                                            Click="UninstallButton_Click"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- TAB 5: Key Press Sounds -->
+                <TabItem x:Name="SoundsTabItem" Header="🔊 Звуки клавиш">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,8,0,0">
+                        <StackPanel>
+                            <!-- Card 1: Activation, Volume, Options, Preview -->
+                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <TextBlock x:Name="SoundCardTitleText" Style="{StaticResource SectionTitleStyle}" Text="Звуки при нажатии клавиш (тайпинг)"/>
+
+                                    <CheckBox x:Name="KeySoundEnabledCheck"
+                                              Content="🔊 Включить звуки при нажатии клавиш (глобально в Windows)"
+                                              FontWeight="SemiBold"
+                                              Margin="0,0,0,14"
+                                              Checked="KeySoundEnabledCheck_Changed"
+                                              Unchecked="KeySoundEnabledCheck_Changed"/>
+
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="52"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="SoundVolumeLabelText" Grid.Column="0" Style="{StaticResource MutedLabelStyle}" Text="Громкость:"/>
+                                        <Slider x:Name="KeySoundVolumeSlider"
+                                                Grid.Column="1"
+                                                Minimum="0"
+                                                Maximum="100"
+                                                Value="70"
+                                                TickFrequency="5"
+                                                IsSnapToTickEnabled="True"
+                                                VerticalAlignment="Center"
+                                                ValueChanged="KeySoundVolumeSlider_ValueChanged"/>
+                                        <TextBlock x:Name="KeySoundVolumeText"
+                                                   Grid.Column="2"
+                                                   HorizontalAlignment="Right"
+                                                   FontWeight="SemiBold"
+                                                   Text="70%"/>
+                                    </Grid>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                                        <CheckBox x:Name="KeySoundSpecialKeysCheck"
+                                                  Content="Отдельный звук для Space / Enter / Backspace"
+                                                  IsChecked="True"
+                                                  Margin="0,0,18,0"
+                                                  Checked="KeySoundOptions_Changed"
+                                                  Unchecked="KeySoundOptions_Changed"/>
+                                        <CheckBox x:Name="KeySoundPitchVarCheck"
+                                                  Content="Живой разброс тона (±4%)"
+                                                  IsChecked="True"
+                                                  Checked="KeySoundOptions_Changed"
+                                                  Unchecked="KeySoundOptions_Changed"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="SoundTestLabelText" Style="{StaticResource MutedLabelStyle}" Text="Проба звука:" Margin="0,0,10,0"/>
+                                        <Button x:Name="SoundTestNormalBtn" Content="▶ Клавиша" Tag="Normal" Margin="0,0,8,0" Click="KeySoundTestButton_Click"/>
+                                        <Button x:Name="SoundTestSpaceBtn" Content="▶ Пробел" Tag="Space" Margin="0,0,8,0" Click="KeySoundTestButton_Click"/>
+                                        <Button x:Name="SoundTestEnterBtn" Content="▶ Enter" Tag="Enter" Click="KeySoundTestButton_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Card 2: Profiles & Custom WAV -->
+                            <Border Style="{StaticResource CardStyle}">
+                                <StackPanel>
+                                    <TextBlock x:Name="SoundProfilesTitleText" Style="{StaticResource SectionTitleStyle}" Text="Профиль свитчей и пользовательский WAV"/>
+
+                                    <UniformGrid Columns="3" Margin="0,0,0,12">
+                                        <RadioButton x:Name="ProfThockyRadio" Style="{StaticResource TileRadioStyle}" GroupName="KeySoundProfile" Content="🎹 Thocky (Глубокий)" Tag="Thocky" IsChecked="True" Checked="KeySoundProfileRadio_Checked"/>
+                                        <RadioButton x:Name="ProfClickyBlueRadio" Style="{StaticResource TileRadioStyle}" GroupName="KeySoundProfile" Content="🔵 Clicky Blue (Щелчок)" Tag="ClickyBlue" Checked="KeySoundProfileRadio_Checked"/>
+                                        <RadioButton x:Name="ProfSilentTactileRadio" Style="{StaticResource TileRadioStyle}" GroupName="KeySoundProfile" Content="🤫 Silent Tactile (Тихий)" Tag="SilentTactile" Checked="KeySoundProfileRadio_Checked"/>
+                                        <RadioButton x:Name="ProfTypewriterRadio" Style="{StaticResource TileRadioStyle}" GroupName="KeySoundProfile" Content="⌨ Печатная машинка" Tag="Typewriter" Checked="KeySoundProfileRadio_Checked"/>
+                                        <RadioButton x:Name="ProfBubblePopRadio" Style="{StaticResource TileRadioStyle}" GroupName="KeySoundProfile" Content="🫧 Пузырьки (Bubble)" Tag="BubblePop" Checked="KeySoundProfileRadio_Checked"/>
+                                        <RadioButton x:Name="ProfSciFiRadio" Style="{StaticResource TileRadioStyle}" GroupName="KeySoundProfile" Content="⚡ Sci-Fi (Синтез)" Tag="SciFi" Checked="KeySoundProfileRadio_Checked"/>
+                                    </UniformGrid>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="LoadCustomWavButton"
+                                                Content="📂 Загрузить свой .WAV файл..."
+                                                Margin="0,0,10,0"
+                                                Click="LoadCustomWavButton_Click"/>
+                                        <RadioButton x:Name="CustomWavProfileRadio"
+                                                     Style="{StaticResource TileRadioStyle}"
+                                                     GroupName="KeySoundProfile"
+                                                     Content="Свой .WAV"
+                                                     Tag="CustomWav"
+                                                     IsEnabled="False"
+                                                     Margin="0,0,12,0"
+                                                     Checked="KeySoundProfileRadio_Checked"/>
+                                        <TextBlock x:Name="CustomWavStatusText"
+                                                   Style="{StaticResource MutedLabelStyle}"
+                                                   Text="Файл не выбран (до 0.5 сек)"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <!-- 3. Bottom Event Log & Tray Options -->
+        <Border Grid.Row="2" Style="{StaticResource CardStyle}" Padding="12,8" Margin="0,12,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="LogTitleText" Style="{StaticResource MutedLabelStyle}" Text="Журнал событий:"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <CheckBox x:Name="MinimizeToTrayCheck"
+                                  Content="Сворачивать в трей при закрытии"
+                                  IsChecked="True"
+                                  Margin="0,0,14,0"/>
+                        <Button x:Name="ClearLogButton" Content="Очистить" Padding="8,3" FontSize="11.5" Click="ClearLogButton_Click"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBox x:Name="LogTextBox"
+                         Grid.Row="1"
+                         IsReadOnly="True"
+                         VerticalScrollBarVisibility="Auto"
+                         TextWrapping="Wrap"
+                         FontFamily="Consolas"
+                         FontSize="12"
+                         Padding="6,4"/>
+            </Grid>
+        </Border>
+
+        <!-- 4. Bottom-Right Developer Credit -->
+        <TextBlock Grid.Row="3"
+                   HorizontalAlignment="Right"
+                   Margin="0,6,2,0"
+                   FontSize="11.5"
+                   Foreground="{StaticResource TextMutedBrush}">
+            <Run x:Name="DeveloperLabelRun" Text="Разработчик: "/><Hyperlink NavigateUri="https://github.com/Diesel-x"
+                       Foreground="{StaticResource AccentBrush}"
+                       TextDecorations="Underline"
+                       Cursor="Hand"
+                       RequestNavigate="DeveloperLink_RequestNavigate">Diesel-X</Hyperlink>
+        </TextBlock>
+    </Grid>
+</Window>
